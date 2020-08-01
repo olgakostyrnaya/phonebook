@@ -32,7 +32,7 @@ public class PhoneCodeServiceImpl implements PhoneCodeService {
 
     @Override
     public void add(PhoneCode phoneCode) {
-
+        phoneСodeRepository.save(phoneCode);
     }
 
     @Override

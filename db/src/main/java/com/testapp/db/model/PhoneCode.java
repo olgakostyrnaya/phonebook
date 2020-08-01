@@ -4,9 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
 
 @Data
 @AllArgsConstructor
@@ -24,6 +26,8 @@ public class PhoneCode {
     /**
      * Телефонный код
      */
+    @Pattern(regexp = "^\\b[0-9]{4,10}[Xx]{0,6}$")
+    @Length(min = 10, max = 10)
     private String phoneCode;
 
     /**
