@@ -27,7 +27,6 @@ public class PhoneCode {
      * Телефонный код
      */
     @Pattern(regexp = "^\\b[0-9]{4,10}[Xx]{0,6}$")
-    @Length(min = 10, max = 10)
     private String phoneCode;
 
     /**
