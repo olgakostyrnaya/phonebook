@@ -44,4 +44,19 @@ public class PhoneCodeResource {
         return phoneCodeService.deleteByName(name);
     }
 
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/findByCodeContains/{mask}")
+    public List<PhoneCode> findByCodeContains(@PathParam("mask") String mask) {
+        return phoneCodeService.findByCodeContains(mask);
+    }
+
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/findByNameContains/{mask}")
+    public List<PhoneCode> findByNameContains(@PathParam("mask") String mask) {
+        return phoneCodeService.findByNameContains(mask);
+    }
 }

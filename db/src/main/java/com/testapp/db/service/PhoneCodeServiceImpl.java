@@ -42,9 +42,15 @@ public class PhoneCodeServiceImpl implements PhoneCodeService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<PhoneCode> findByRegExp(Pattern pattern) {
-        return null;
+    @Transactional
+    public List<PhoneCode> findByCodeContains(String mask) {
+        return phoneCodeRepository.findByCodeContains(mask);
+    }
+
+    @Override
+    @Transactional
+    public List<PhoneCode> findByNameContains(String mask) {
+        return phoneCodeRepository.findByNameContains(mask);
     }
 
     @Override
@@ -77,14 +83,12 @@ public class PhoneCodeServiceImpl implements PhoneCodeService {
     }
 
     @Override
-    @Modifying
     @Transactional
     public int deleteByCode(String code) {
         return phoneCodeRepository.deleteByCode(PhoneCode.addReplaceSymbolIfNeeded(code));
     }
 
     @Override
-    @Modifying
     @Transactional
     public int deleteByName(String name) {
         return phoneCodeRepository.deleteByName(name);
