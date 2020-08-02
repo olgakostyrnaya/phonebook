@@ -32,18 +32,21 @@ public class PhoneCode {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "ID")
     private Long id;
 
     /**
      * Телефонный код
      */
     @NotBlank
+    @Column(name = "CODE")
     private String code;
 
     /**
      * Название направления
      */
     @NotBlank
+    @Column(name = "NAME")
     private String name;
 
     public void addReplaceSymbolIfNeeded() {

@@ -3,13 +3,11 @@ package com.testapp.db.service;
 import com.testapp.db.dao.PhoneCodeDao;
 import com.testapp.db.model.PhoneCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -42,15 +40,21 @@ public class PhoneCodeServiceImpl implements PhoneCodeService {
     }
 
     @Override
-    @Transactional
-    public List<PhoneCode> findByCodeContains(String mask) {
-        return phoneCodeRepository.findByCodeContains(mask);
+    public List<PhoneCode> fullTextSearchByMask(String mask) {
+        //todo fullTextSearch
+        return null;
     }
 
     @Override
     @Transactional
-    public List<PhoneCode> findByNameContains(String mask) {
-        return phoneCodeRepository.findByNameContains(mask);
+    public List<PhoneCode> findByCodeContains(String part) {
+        return phoneCodeRepository.findByCodeContains(part);
+    }
+
+    @Override
+    @Transactional
+    public List<PhoneCode> findByNameContains(String part) {
+        return phoneCodeRepository.findByNameContains(part);
     }
 
     @Override
