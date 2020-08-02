@@ -32,4 +32,16 @@ public class PhoneCodeResource {
         phoneCodeService.add(phoneCode);
     }
 
+    @DELETE
+    @Path("/deleteByCode/{code}")
+    public int deleteByCode(@PathParam("code") String code) {
+        return phoneCodeService.deleteByCode(code);
+    }
+
+    @DELETE
+    @Path("/deleteByName/{name}")
+    public int deleteByName(@PathParam("name") String name) {
+        return phoneCodeService.deleteByName(name);
+    }
+
 }

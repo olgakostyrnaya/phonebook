@@ -3,7 +3,9 @@ package com.testapp.db.service;
 import com.testapp.db.dao.PhoneCodeDao;
 import com.testapp.db.model.PhoneCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -25,44 +27,45 @@ public class PhoneCodeServiceImpl implements PhoneCodeService {
      * Заполнение БД
      */
     @PostConstruct
+    @Transactional
     public void initData() {
-        this.addAll(Stream.of(new PhoneCode(100L, "446970", "Название направления 1"),
-                new PhoneCode(101L, "375099661", "Название направления 2"),
-                new PhoneCode(102L, "21116321", "Название направления 3"),
-                new PhoneCode(103L, "7612816", "Название направления 4"),
-                new PhoneCode(104L, "47830", "Название направления 5"),
-                new PhoneCode(105L, "5799", "Название направления 6"),
-                new PhoneCode(106L, "2944701", "Название направления 7"),
-                new PhoneCode(107L, "71192", "Название направления 8"),
-                new PhoneCode(108L, "47079", "Название направления 9"))
+        this.addAll(Stream.of(new PhoneCode("446970", "Название направления 1"),
+                new PhoneCode("375099661", "Название направления 2"),
+                new PhoneCode("21116321", "Название направления 3"),
+                new PhoneCode("7612816", "Название направления 4"),
+                new PhoneCode("47830", "Название направления 5"),
+                new PhoneCode("5799", "Название направления 6"),
+                new PhoneCode("2944701", "Название направления 7"),
+                new PhoneCode("71192", "Название направления 8"),
+                new PhoneCode("47079", "Название направления 9"))
                 .collect(Collectors.toList()));
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PhoneCode> findByRegExp(Pattern pattern) {
         return null;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PhoneCode> findAll() {
         return phoneCodeRepository.findAll();
     }
 
     @Override
+    @Transactional
     public void add(PhoneCode phoneCode) {
         if (phoneCode == null) {
             return;
         }
 
-        StringBuilder code = new StringBuilder(phoneCode.getCode());
-        while (code.length() < PhoneCode.CODE_LENGTH) {
-            code.append(PhoneCode.CODE_NUMBER_REPLACE_SYMBOL);
-        }
-        phoneCode.setCode(code.toString());
+        phoneCode.addReplaceSymbolIfNeeded();
         phoneCodeRepository.save(phoneCode);
     }
 
     @Override
+    @Transactional
     public void addAll(List<PhoneCode> phoneCodes) {
         if (phoneCodes == null) {
             return;
@@ -74,7 +77,16 @@ public class PhoneCodeServiceImpl implements PhoneCodeService {
     }
 
     @Override
-    public void delete(String code) {
+    @Modifying
+    @Transactional
+    public int deleteByCode(String code) {
+        return phoneCodeRepository.deleteByCode(PhoneCode.addReplaceSymbolIfNeeded(code));
+    }
 
+    @Override
+    @Modifying
+    @Transactional
+    public int deleteByName(String name) {
+        return phoneCodeRepository.deleteByName(name);
     }
 }

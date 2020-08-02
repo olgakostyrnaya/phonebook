@@ -15,11 +15,10 @@ public interface PhoneCodeService {
 
     void addAll(List<PhoneCode> phoneCodes);
 
-    void delete(String code);
+    int deleteByCode(String code);
 
+    int deleteByName(String name);
 
     // TODO: 01.08.2020:
-    //  Удаление записи из справочника
     //  Поиск всех тел.кодов, удовлетворяющих введенной маске.
-
 }
