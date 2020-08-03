@@ -31,7 +31,10 @@ public class PhoneCode {
      * Уникальный идентификатор
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE,
+            generator="phone_code_seq")
+    @SequenceGenerator(name="phone_code_seq",
+            sequenceName="seq_phone_code", allocationSize=1)
     @Column(name = "ID")
     private Long id;
 
