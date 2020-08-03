@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PhoneCodeService {
 
-    List<PhoneCode> fullTextSearchByMask(String mask);
+    List<PhoneCode> findByMask(String mask);
 
     List<PhoneCode> findByCodeContains(String part);
 

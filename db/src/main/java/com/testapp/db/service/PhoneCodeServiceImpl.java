@@ -40,8 +40,7 @@ public class PhoneCodeServiceImpl implements PhoneCodeService {
     }
 
     @Override
-    public List<PhoneCode> fullTextSearchByMask(String mask) {
-        //todo fullTextSearch
+    public List<PhoneCode> findByMask(String mask) {
         return null;
     }
 

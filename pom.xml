@@ -55,18 +55,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!--dependency for fullTextSearch-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-search</artifactId>-->
-            <!--<version>5.11.5.Final</version>-->
-            <!--<type>pom</type>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.hibernate</groupId>-->
-            <!--<artifactId>hibernate-search</artifactId>-->
-            <!--<version>3.1.0.GA</version>-->
-        <!--</dependency>-->
     </dependencies>
 
     <profiles>
@@ -96,7 +84,7 @@
                 <dependency>
                     <groupId>com.oracle.database.jdbc</groupId>
                     <artifactId>ojdbc8</artifactId>
-                    <version>RELEASE</version>
+                    <version>19.7.0.0</version>
                     <scope>runtime</scope>
                 </dependency>
             </dependencies>
