@@ -16,14 +16,6 @@ public class PhoneCodeResource {
     @Autowired
     private PhoneCodeService phoneCodeService;
 
-    @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    @Path("/searchAll")
-    public List<PhoneCode> getPhoneCodes() {
-        return phoneCodeService.findAll();
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -49,6 +41,10 @@ public class PhoneCodeResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/search")
     public List<PhoneCode> search(@QueryParam("mask") String mask) {
+        if (mask == null) {
+            return phoneCodeService.findAll();
+        }
+
         return phoneCodeService.findByCodeContains(mask);
     }
 }
