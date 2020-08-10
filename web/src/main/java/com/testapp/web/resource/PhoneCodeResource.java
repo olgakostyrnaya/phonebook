@@ -10,7 +10,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("phoneCodeResource")
+@Path("phone_code")
 public class PhoneCodeResource {
 
     @Autowired
@@ -19,7 +19,7 @@ public class PhoneCodeResource {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/getAllPhoneCodes")
+    @Path("/searchAll")
     public List<PhoneCode> getPhoneCodes() {
         return phoneCodeService.findAll();
     }
@@ -27,28 +27,28 @@ public class PhoneCodeResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/addPhoneCode")
-    public void addPhoneCode(@ValidPhoneCode PhoneCode phoneCode) {
+    @Path("/add")
+    public void add(@ValidPhoneCode PhoneCode phoneCode) {
         phoneCodeService.add(phoneCode);
     }
 
     @DELETE
-    @Path("/deleteByCode/{code}")
-    public int deleteByCode(@PathParam("code") String code) {
-        return phoneCodeService.deleteByCode(code);
-    }
+    @Path("/delete")
+    public void delete(@QueryParam("code") String code, @QueryParam("name") String name) {
+        if (code != null) {
+            phoneCodeService.deleteByCode(code);
+        }
 
-    @DELETE
-    @Path("/deleteByName/{name}")
-    public int deleteByName(@PathParam("name") String name) {
-        return phoneCodeService.deleteByName(name);
+        if (name != null) {
+            phoneCodeService.deleteByName(name);
+        }
     }
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/findByCodeContains/{mask}")
-    public List<PhoneCode> findByCodeContains(@PathParam("mask") String mask) {
+    @Path("/search")
+    public List<PhoneCode> search(@QueryParam("mask") String mask) {
         return phoneCodeService.findByCodeContains(mask);
     }
 }
